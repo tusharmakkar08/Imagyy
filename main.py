@@ -1,4 +1,5 @@
-import json, re, requests, sys, urllib, webbrowser
+from bs4 import BeautifulSoup
+import json, requests, sys, urllib, webbrowser
 
 def get_profile_id_fbv1(username):
     """
@@ -13,10 +14,17 @@ def get_profile_id_fbv1(username):
 def get_profile_id_fbv2(username):
     """
     Input : Username
-    Output : Profile Id 
+    Output : Profile Id HTML 
     """
     requestData = requests.post("http://findmyfbid.com/", data={'url':username})
-    print requestData.text
+    return requestData.text
+
+def get_user_id(html_string):
+    """
+    Input : HTML String from POST
+    Output : Profile Id  
+    """
+    return BeautifulSoup(html_string,"html.parser").code.string
 
 def open_image_page(profile_id):
     """
@@ -30,7 +38,6 @@ def main():
     username = raw_input("Enter the Username : ")
     user_html = get_profile_id_fbv2(username)
     user_id = get_user_id(user_html)
-    sys.exit(0)
     open_image_page(user_id)
     print ""
     return 0
