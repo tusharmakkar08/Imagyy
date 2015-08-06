@@ -1,6 +1,6 @@
-import json, urllib, webbrowser
+import json, re, requests, sys, urllib, webbrowser
 
-def get_profile_id(username):
+def get_profile_id_fbv1(username):
     """
     Input : Username
     Output : Profile Id 
@@ -10,6 +10,14 @@ def get_profile_id(username):
     data = json.loads(response.read())
     return data['id']
     
+def get_profile_id_fbv2(username):
+    """
+    Input : Username
+    Output : Profile Id 
+    """
+    requestData = requests.post("http://findmyfbid.com/", data={'url':username})
+    print requestData.text
+
 def open_image_page(profile_id):
     """
     Input : Profile Id 
@@ -20,7 +28,9 @@ def open_image_page(profile_id):
 
 def main():
     username = raw_input("Enter the Username : ")
-    user_id = get_profile_id(username)
+    user_html = get_profile_id_fbv2(username)
+    user_id = get_user_id(user_html)
+    sys.exit(0)
     open_image_page(user_id)
     print ""
     return 0
