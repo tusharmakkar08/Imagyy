@@ -34,11 +34,20 @@ def open_image_page(profile_id):
     new_url = "https://www.facebook.com/search/"+profile_id+"/photos-of"
     webbrowser.open_new_tab(new_url)
 
+def open_profile_pic(profile_id):
+    """
+    Input : Profile Id 
+    Output : Opens a new tab with profile picture of the username
+    """
+    new_url = "https://graph.facebook.com/"+profile_id+"/picture?width=800"
+    webbrowser.open_new_tab(new_url)
+
 def main():
     username = raw_input("Enter the Username : ")
     user_html = get_profile_id_fbv2(username)
     user_id = get_user_id(user_html)
     open_image_page(user_id)
+    open_profile_pic(user_id)
     print ""
     return 0
 
