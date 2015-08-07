@@ -5,6 +5,11 @@ Due to the advent of Post Search , it's difficult to use the feature of "Photos 
 graph search . This application helps to ease the problem. Though you need to open the terminal which is not an 
 issue for me since it's opened always :P :P 
 
+Extension 1 :
+-------------
+
+The profile picture of a given username is also opened in a new tab with original (maximum) size. 
+
 Usage : 
 ------
 
