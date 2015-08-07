@@ -10,6 +10,11 @@ Extension 1 :
 
 The profile picture of a given username is also opened in a new tab with original (maximum) size. 
 
+Preconditions :
+---------------
+
+Graph search doesn't work until you are logged into your account while the extension works otherwise also.
+
 Usage : 
 ------
 
