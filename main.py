@@ -1,5 +1,6 @@
 __author__ = 'tusharmakkar08'
 
+import argparse
 import json
 import urllib
 import webbrowser
@@ -54,14 +55,30 @@ def _open_profile_pic(profile_id):
     webbrowser.open_new_tab(new_url)
 
 
-def main():
-    username = raw_input("Enter the Username : ")
+def _get_parser():
+    parser = argparse.ArgumentParser(description='Tool for fetching photos from facebook')
+    parser.add_argument('-u', '--username', metavar='username', type=str,
+                        help='Username to analyze')
+    return parser
+
+
+def main(username):
     user_html = _get_profile_id_fbv2(username)
     user_id = _get_user_id(user_html)
     _open_image_page(user_id)
     _open_profile_pic(user_id)
-    return 0
 
+
+def command_line_runner():
+    parser = _get_parser()
+    args = vars(parser.parse_args())
+
+    if not args['username']:
+        parser.print_help()
+    else:
+        main(args['username'])
+
+    return
 
 if __name__ == '__main__':
-    main()
+    command_line_runner()
