@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def get_profile_id_fbv1(username):
+def _get_profile_id_fbv1(username):
     """
     Input : Username
     Output : Profile Id 
@@ -19,7 +19,7 @@ def get_profile_id_fbv1(username):
     return data['id']
 
 
-def get_profile_id_fbv2(username):
+def _get_profile_id_fbv2(username):
     """
     Input : Username
     Output : Profile Id HTML 
@@ -28,7 +28,7 @@ def get_profile_id_fbv2(username):
     return request_data.text
 
 
-def get_user_id(html_string):
+def _get_user_id(html_string):
     """
     Input : HTML String from POST
     Output : Profile Id  
@@ -36,7 +36,7 @@ def get_user_id(html_string):
     return BeautifulSoup(html_string, "html.parser").code.string
 
 
-def open_image_page(profile_id):
+def _open_image_page(profile_id):
     """
     Input : Profile Id 
     Output : Opens a new tab with graph search results
@@ -45,7 +45,7 @@ def open_image_page(profile_id):
     webbrowser.open_new_tab(new_url)
 
 
-def open_profile_pic(profile_id):
+def _open_profile_pic(profile_id):
     """
     Input : Profile Id 
     Output : Opens a new tab with profile picture of the username
@@ -56,11 +56,10 @@ def open_profile_pic(profile_id):
 
 def main():
     username = raw_input("Enter the Username : ")
-    user_html = get_profile_id_fbv2(username)
-    user_id = get_user_id(user_html)
-    open_image_page(user_id)
-    open_profile_pic(user_id)
-    print ""
+    user_html = _get_profile_id_fbv2(username)
+    user_id = _get_user_id(user_html)
+    _open_image_page(user_id)
+    _open_profile_pic(user_id)
     return 0
 
 
