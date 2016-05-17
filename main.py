@@ -37,22 +37,32 @@ def _get_user_id(html_string):
     return BeautifulSoup(html_string, "html.parser").code.string
 
 
-def _open_image_page(profile_id):
+def open_image_page(profile_id):
     """
     Input : Profile Id 
     Output : Opens a new tab with graph search results
     """
-    new_url = "https://www.facebook.com/search/" + profile_id + "/photos-of"
-    webbrowser.open_new_tab(new_url)
+    try:
+        new_url = "https://www.facebook.com/search/" + profile_id + "/photos-of"
+        webbrowser.open_new_tab(new_url)
+        return 1
+    except Exception, e:
+        print(e)
+        return -1
 
 
-def _open_profile_pic(profile_id):
+def open_profile_pic(profile_id):
     """
     Input : Profile Id 
     Output : Opens a new tab with profile picture of the username
     """
-    new_url = "https://graph.facebook.com/" + profile_id + "/picture?width=800"
-    webbrowser.open_new_tab(new_url)
+    try:
+        new_url = "https://graph.facebook.com/" + profile_id + "/picture?width=800"
+        webbrowser.open_new_tab(new_url)
+        return 1
+    except Exception, e:
+        print(e)
+        return -1
 
 
 def _get_parser():
@@ -63,21 +73,24 @@ def _get_parser():
 
 
 def main(username):
-    user_html = _get_profile_id_fbv2(username)
-    user_id = _get_user_id(user_html)
-    _open_image_page(user_id)
-    _open_profile_pic(user_id)
+    try:
+        user_html = _get_profile_id_fbv2(username)
+        user_id = _get_user_id(user_html)
+        open_image_page(user_id)
+        open_profile_pic(user_id)
+        return 1
+    except Exception, e:
+        print(e)
+        return -1
 
 
 def command_line_runner():
     parser = _get_parser()
     args = vars(parser.parse_args())
-
     if not args['username']:
         parser.print_help()
     else:
         main(args['username'])
-
     return
 
 if __name__ == '__main__':
