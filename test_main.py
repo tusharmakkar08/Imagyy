@@ -2,7 +2,7 @@ __author__ = 'tusharmakkar08'
 
 import unittest
 
-from main import main, open_image_page, open_profile_pic
+from main import main, open_image_page, open_profile_pic, open_public_images
 
 # TODO: Need to make a test user
 TEST_USERNAME = "Lakshaymakkar13"
@@ -28,6 +28,14 @@ class TestMain(unittest.TestCase):
         :return:
         """
         expected_output = open_image_page(TEST_USER_ID)
+        self.assertEqual(expected_output, 1)
+
+    def test_public_image(self):
+        """
+        public image opens up
+        :return:
+        """
+        expected_output = open_public_images(TEST_USERNAME)
         self.assertEqual(expected_output, 1)
 
     def test_main(self):

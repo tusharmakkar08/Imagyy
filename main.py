@@ -65,6 +65,20 @@ def open_profile_pic(profile_id):
         return -1
 
 
+def open_public_images(username):
+    """
+    :param username: username of a given person
+    :return:
+    """
+    try:
+        new_url = "https://www.facebook.com/"+username+"/photos_all"
+        webbrowser.open_new_tab(new_url)
+        return 1
+    except Exception, e:
+        print(e)
+        return -1
+
+
 def _get_parser():
     parser = argparse.ArgumentParser(description='Tool for fetching photos from facebook')
     parser.add_argument('-u', '--username', metavar='username', type=str,
@@ -76,6 +90,7 @@ def main(username):
     try:
         user_html = _get_profile_id_fbv2(username)
         user_id = _get_user_id(user_html)
+        open_public_images(username)
         open_image_page(user_id)
         open_profile_pic(user_id)
         return 1
