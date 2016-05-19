@@ -81,8 +81,10 @@ def open_public_images(username):
 
 def _get_parser():
     parser = argparse.ArgumentParser(description='Tool for fetching photos from facebook')
-    parser.add_argument('-u', '--username', metavar='username', type=str,
+    parser.add_argument('-n', '--username', metavar='username', type=str,
                         help='Username to analyze')
+    parser.add_argument('-u', '--url', metavar='url', type=str,
+                        help='Profile Url to analyze')
     return parser
 
 
@@ -102,10 +104,13 @@ def main(username):
 def command_line_runner():
     parser = _get_parser()
     args = vars(parser.parse_args())
-    if not args['username']:
+    if not (args['username'] or args['url']):
         parser.print_help()
-    else:
+    elif args['username']:
         main(args['username'])
+    else:
+        username = args['url'].split(".com/")[1].split("/")[0]
+        main(username)
     return
 
 if __name__ == '__main__':
