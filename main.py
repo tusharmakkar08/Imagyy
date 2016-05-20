@@ -85,14 +85,20 @@ def _get_parser():
                         help='Username to analyze')
     parser.add_argument('-u', '--url', metavar='url', type=str,
                         help='Profile Url to analyze')
+    parser.add_argument('-i', '--id', metavar='id', type=str,
+                        help='Profile Id to analyze')
     return parser
 
 
-def main(username):
+def main(username, user_id=None):
     try:
-        user_html = _get_profile_id_fbv2(username)
-        user_id = _get_user_id(user_html)
-        open_public_images(username)
+        if not user_id:
+            user_html = _get_profile_id_fbv2(username)
+            user_id = _get_user_id(user_html)
+            open_public_images(username)
+        else:
+            new_url = "https://www.facebook.com/profile.php?id="+user_id+"&sk=photos"
+            webbrowser.open_new_tab(new_url)
         open_image_page(user_id)
         open_profile_pic(user_id)
         return 1
@@ -104,13 +110,20 @@ def main(username):
 def command_line_runner():
     parser = _get_parser()
     args = vars(parser.parse_args())
-    if not (args['username'] or args['url']):
+    if not (args['username'] or args['url'] or args['id']):
         parser.print_help()
     elif args['username']:
         main(args['username'])
-    else:
+    elif args['url']:
         username = args['url'].split(".com/")[1].split("/")[0]
-        main(username)
+        if ".php" in username:
+            user_id = username.split('=')[1]
+            main("", user_id)
+        else:
+            main(username)
+    else:
+        user_id = args['id']
+        main("", user_id)
     return
 
 if __name__ == '__main__':
