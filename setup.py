@@ -18,12 +18,14 @@ setup(
     author_email="tusharmakkar08@gmail.com",
 
     # Packages
-    packages=find_packages(),
+    py_modules=['fb_search'],
 
     package_data={'': ['*.md']},
 
+    license='MIT',
+    platforms=['any'],
     # Details
-    url="http://tusharmakkar08.github.io/",
+    url="http://tusharmakkar08.github.io/Facebook_Graph_Search_Images/",
 
     classifiers=[
         'Programming Language :: Python :: 2.7',
