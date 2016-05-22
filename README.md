@@ -14,6 +14,14 @@ Extension 2 :
 
 Gets the open images of a public profile. 
 
+Installation : 
+---------------
+
+It can be installed via pip. 
+
+`pip install facebook_image_search`
+
+
 Preconditions :
 ---------------
 

@@ -11,7 +11,7 @@ setup(
     name="facebook_image_search",
 
     # Version number:
-    version="0.0.1",
+    version="0.0.3",
 
     # Application author details:
     author="Tushar Makkar",
@@ -32,7 +32,7 @@ setup(
     ],
 
     # license="LICENSE.txt",
-    description=open("README.md").read(),
+    description="Fetches public photos of any facebook id/username",
 
     long_description=open("README.md").read(),
 
