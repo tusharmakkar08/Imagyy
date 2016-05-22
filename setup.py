@@ -36,7 +36,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'yaml_validator = main:command_line_runner',
+            'fb-search = fb-search:command_line_runner',
         ]
     },
 
