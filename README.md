@@ -12,7 +12,7 @@ The profile picture of a given username is also opened in a new tab with origina
 Extension 2 :
 -------------
 
-Gets the open images of a piblic profile. 
+Gets the open images of a public profile. 
 
 Preconditions :
 ---------------
@@ -23,18 +23,18 @@ This is a command line tool.
 Usage :
 --------
 
-`
-usage: fb-search.py [-h] [-n username] [-u url] [-i id]
 
-Tool for fetching photos from facebook
+    usage: fb-search.py [-h] [-n username] [-u url] [-i id]
+    
+    Tool for fetching photos from facebook
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -n username, --username username
+                            Username to analyze
+      -u url, --url url     Profile Url to analyze
+      -i id, --id id        Profile Id to analyze
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -n username, --username username
-                        Username to analyze
-  -u url, --url url     Profile Url to analyze
-  -i id, --id id        Profile Id to analyze
-`
 
 Usage : 
 --------
