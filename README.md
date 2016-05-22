@@ -36,13 +36,6 @@ Usage :
       -i id, --id id        Profile Id to analyze
 
 
-Usage : 
---------
-
-* Run `python main.py`
-* Enter Username
-* The page will be opened in new tab
-
 Requirements :
 --------------
 
