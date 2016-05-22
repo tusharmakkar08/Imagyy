@@ -36,7 +36,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'fb-search = fb-search:command_line_runner',
+            'fb-search = fb_search:command_line_runner',
         ]
     },
 

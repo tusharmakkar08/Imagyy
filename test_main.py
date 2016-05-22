@@ -2,7 +2,7 @@ __author__ = 'tusharmakkar08'
 
 import unittest
 
-from main import main, open_image_page, open_profile_pic, open_public_images
+from fb_search import main, open_image_page, open_profile_pic, open_public_images
 
 # TODO: Need to make a test user
 TEST_USERNAME = "Lakshaymakkar13"
