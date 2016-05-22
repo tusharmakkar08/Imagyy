@@ -14,22 +14,21 @@ Extension 2 :
 
 Gets the open images of a public profile. 
 
-Installation : 
----------------
-
-It can be installed via pip. 
-
-`pip install facebook_image_search`
+#  Installation : 
 
 
-Preconditions :
----------------
+`facebook_image_search` is a Python2.7 library. 
+
+    pip install facebook_image_search
+
+
+# Preconditions :
+
 
 Graph search doesn't work until you are logged into your account while the extension works otherwise also. 
 This is a command line tool. 
 
-Usage :
---------
+# Usage :
 
 
     usage: fb-search.py [-h] [-n username] [-u url] [-i id]
@@ -44,7 +43,6 @@ Usage :
       -i id, --id id        Profile Id to analyze
 
 
-Requirements :
---------------
+# License
 
-* Python 2.7
+The mighty MIT license. Please check `LICENSE` for more details.
