@@ -4,10 +4,10 @@ import argparse
 import json
 import urllib
 import webbrowser
-
 from bs4 import BeautifulSoup
 import requests
 
+from instagram_search import instagram_image_downloader
 
 def _get_profile_id_fbv1(username):
     """
@@ -81,27 +81,37 @@ def open_public_images(username):
 
 def _get_parser():
     parser = argparse.ArgumentParser(description='Tool for fetching photos from facebook')
+    parser.add_argument('-fb', '--facebook', action='store_true',
+                        help='Fetch Facebook Photos (Default)')
+    parser.add_argument('-ig', '--instagram', action='store_true',
+                        help='Fetch Instagram Photos')
     parser.add_argument('-n', '--username', metavar='username', type=str,
                         help='Username to analyze')
     parser.add_argument('-u', '--url', metavar='url', type=str,
                         help='Profile Url to analyze')
     parser.add_argument('-i', '--id', metavar='id', type=str,
-                        help='Profile Id to analyze')
+                        help='Profile Id to analyze (only for facebook)')
+    parser.add_argument('-d', '--directory', type=str, default=None,
+                        help='Directory to download photos (only for instagram)')
     return parser
 
 
-def main(username, user_id=None):
+def main(username, user_id=None, instagram_fetcher=[False, None]):
     try:
-        if not user_id:
-            user_html = _get_profile_id_fbv2(username)
-            user_id = _get_user_id(user_html)
-            open_public_images(username)
+        if instagram_fetcher[0]:
+            url = "https://www.instagram.com/"+username+"/"
+            instagram_image_downloader(url, instagram_fetcher[1])
         else:
-            new_url = "https://www.facebook.com/profile.php?id="+user_id+"&sk=photos"
-            webbrowser.open_new_tab(new_url)
-        open_image_page(user_id)
-        open_profile_pic(user_id)
-        return 1
+            if not user_id:
+                user_html = _get_profile_id_fbv2(username)
+                user_id = _get_user_id(user_html)
+                open_public_images(username)
+            else:
+                new_url = "https://www.facebook.com/profile.php?id="+user_id+"&sk=photos"
+                webbrowser.open_new_tab(new_url)
+            open_image_page(user_id)
+            open_profile_pic(user_id)
+            return 1
     except Exception, e:
         print(e)
         return -1
@@ -110,17 +120,20 @@ def main(username, user_id=None):
 def command_line_runner():
     parser = _get_parser()
     args = vars(parser.parse_args())
+    instagram_fetcher = [False, None]
+    if args["instagram"]:
+        instagram_fetcher = [True, args["directory"]]
     if not (args['username'] or args['url'] or args['id']):
         parser.print_help()
     elif args['username']:
-        main(args['username'])
+        main(args['username'], instagram_fetcher=instagram_fetcher)
     elif args['url']:
         username = args['url'].split(".com/")[1].split("/")[0]
         if ".php" in username:
             user_id = username.split('=')[1]
             main("", user_id)
         else:
-            main(username)
+            main(username, instagram_fetcher=instagram_fetcher)
     else:
         user_id = args['id']
         main("", user_id)
