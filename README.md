@@ -14,6 +14,11 @@ Extension 2 :
 
 Gets the open images of a public profile. 
 
+Extension 3 :
+-------------
+
+Downloads instagram images in a folder. 
+
 #  Installation : 
 
 
@@ -31,16 +36,22 @@ This is a command line tool.
 # Usage :
 
 
-    usage: fb-search.py [-h] [-n username] [-u url] [-i id]
-    
-    Tool for fetching photos from facebook
+    usage: fb_search.py [-h] [-fb] [-ig] [-n username] [-u url] [-i id]
+                    [-d DIRECTORY]
+
+    Tool for fetching photos from facebook and instagram
     
     optional arguments:
       -h, --help            show this help message and exit
+      -fb, --facebook       Fetch Facebook Photos (Default)
+      -ig, --instagram      Fetch Instagram Photos
       -n username, --username username
                             Username to analyze
       -u url, --url url     Profile Url to analyze
-      -i id, --id id        Profile Id to analyze
+      -i id, --id id        Profile Id to analyze (only for facebook)
+      -d DIRECTORY, --directory DIRECTORY
+                            Directory to download photos (only for instagram)
+
 
 
 # License
