@@ -1,8 +1,8 @@
 Facebook Image Graph Search
 ===========================
 
-Due to the advent of Post Search , it's difficult to use the feature of "Photos of" which was earlier done using 
-graph search . This application aims to solve that problem. 
+Due to the advent of Post Search, it's difficult to use the feature of "Photos of" which was earlier done using 
+graph search. This application aims to solve that problem. You can read more about the project [here](http://tusharmakkar08.github.io/Facebook_Graph_Search_Images/). 
 
 Extension 1 :
 -------------
