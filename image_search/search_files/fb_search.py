@@ -78,6 +78,11 @@ def _open_public_images(username):
 
 
 def facebook_image_search(username, user_id=None):
+    """
+    :param username: Username of the person to search eg: tusharmakkar08
+    :param user_id: User Id of the person (integral number) eg: 647452998
+    :return:
+    """
     try:
         if not user_id:
             user_html = __get_profile_id_fbv2(username)

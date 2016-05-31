@@ -20,7 +20,7 @@ def instagram_image_downloader(url, directory_to_download=None):
     """
     response = urllib2.urlopen(url)
     html = response.read()
-    image_links = set([link for link in re.findall(URL_REGEX, html) if PIC_EXTENSION in link])
+    image_links = {link for link in re.findall(URL_REGEX, html) if PIC_EXTENSION in link}
     unique_image_set = set()
     download_directory = os.path.join(DEFAULT_DIRECTORY, directory_to_download) if directory_to_download else \
         os.path.join(DEFAULT_DIRECTORY, url.split(".com/")[1].strip("/"))
