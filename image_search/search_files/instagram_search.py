@@ -7,10 +7,17 @@ import os
 
 URL_REGEX = r'https?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 PIC_EXTENSION = '.jpg'
-DEFAULT_DIRECTORY = "instagram_images"
+DEFAULT_DIRECTORY = os.path.join(os.getcwd(), "instagram_images")
 
 
 def instagram_image_downloader(url, directory_to_download=None):
+    """
+    Downloads Instagram images in a particular directory
+    :param url: Instagram username url eg: https://www.instagram.com/tusharmakkar08/
+    :param directory_to_download: Directory where files will be downloaded ,
+            if this is none then files downloaded to default directory
+    :return:
+    """
     response = urllib2.urlopen(url)
     html = response.read()
     image_links = set([link for link in re.findall(URL_REGEX, html) if PIC_EXTENSION in link])
@@ -25,7 +32,3 @@ def instagram_image_downloader(url, directory_to_download=None):
             unique_image_set.add(image_id)
             download_location = os.path.join(download_directory, image_id + PIC_EXTENSION)
             urllib.urlretrieve(image_link, download_location)
-
-
-if __name__ == '__main__':
-    instagram_image_downloader("https://www.instagram.com/tusharmakkar08/")
