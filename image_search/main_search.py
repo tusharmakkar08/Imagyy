@@ -4,6 +4,7 @@ import argparse
 
 from image_search.search_files.instagram_search import instagram_image_downloader
 from image_search.search_files.fb_search import facebook_image_search
+from image_search.search_files.github_search import github_image_downloader
 
 
 def _get_parser():
@@ -16,6 +17,8 @@ def _get_parser():
                         help='Fetch Facebook Photos (Default)')
     parser.add_argument('-ig', '--instagram', action='store_true',
                         help='Fetch Instagram Photos')
+    parser.add_argument('-gb', '--github', action='store_true',
+                        help='Fetch Github Profile Photo')
     parser.add_argument('-n', '--username', metavar='username', type=str,
                         help='Username to analyze')
     parser.add_argument('-u', '--url', metavar='url', type=str,
@@ -23,7 +26,7 @@ def _get_parser():
     parser.add_argument('-i', '--id', metavar='id', type=str,
                         help='Profile Id to analyze (only for facebook)')
     parser.add_argument('-d', '--directory', type=str, default=None,
-                        help='Directory to download photos (only for instagram)')
+                        help='Directory to download photos (except Facebook)')
     return parser
 
 
@@ -37,6 +40,9 @@ def command_line_runner():
     if args["instagram"] and (args['username'] or args['url']):
         instagram_url = args['url'] if args['url'] else "https://www.instagram.com/" + args['username']
         instagram_image_downloader(instagram_url)
+    elif args["github"] and (args['username'] or args['url']):
+        github_url = args['url'] if args['url'] else "https://github.com/" + args['username']
+        github_image_downloader(github_url)
     elif not (args['username'] or args['url'] or args['id']):
         parser.print_help()
     elif args['username']:
