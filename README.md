@@ -1,6 +1,11 @@
 Facebook Image Graph Search
 ===========================
 
+[![GitHub issues](https://img.shields.io/github/issues/tusharmakkar08/Facebook_Graph_Search_Images.svg)](https://github.com/tusharmakkar08/Facebook_Graph_Search_Images/issues)
+[![GitHub stars](https://img.shields.io/github/stars/tusharmakkar08/Facebook_Graph_Search_Images.svg)](https://github.com/tusharmakkar08/Facebook_Graph_Search_Images/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/tusharmakkar08/Facebook_Graph_Search_Images/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/facebook-image-search.svg?maxAge=2592000)](https://pypi.python.org/pypi/facebook_image_search)
+
 Due to the advent of Post Search, it's difficult to use the feature of "Photos of" which was earlier done using 
 graph search. This application aims to solve that problem. You can read more about the project [here](http://tusharmakkar08.github.io/Facebook_Graph_Search_Images/). 
 
