@@ -6,6 +6,7 @@ from image_search.search_files.instagram_search import instagram_image_downloade
 from image_search.search_files.fb_search import facebook_image_search
 from image_search.search_files.github_search import github_image_downloader
 from image_search.search_files.quora_search import quora_image_downloader
+from image_search.search_files.linkedin_search import linkedin_image_downloader
 
 
 def _get_parser():
@@ -20,10 +21,12 @@ def _get_parser():
                         help='Fetch Instagram Photos')
     parser.add_argument('-qr', '--quora', action='store_true',
                         help='Fetch Instagram Photos')
+    parser.add_argument('-ln', '--linkedin', action='store_true',
+                        help='Fetch LinkedIn Profile Photo')
     parser.add_argument('-gb', '--github', action='store_true',
                         help='Fetch Github Profile Photo')
     parser.add_argument('-n', '--username', metavar='username', type=str,
-                        help='Username to analyze')
+                        help='Username to analyze (For Linkedin add everything after ".com" eg: in/tusharmakkar08)')
     parser.add_argument('-u', '--url', metavar='url', type=str,
                         help='Profile Url to analyze')
     parser.add_argument('-i', '--id', metavar='id', type=str,
@@ -49,6 +52,9 @@ def command_line_runner():
     elif args["quora"] and (args['username'] or args['url']):
         quora_url = args['url'] if args['url'] else "https://www.quora.com/profile/" + args['username']
         quora_image_downloader(quora_url)
+    elif args["linkedin"] and (args['username'] or args['url']):
+        linkedin_url = args['url'] if args['url'] else "https://www.linkedin.com/" + args['username']
+        linkedin_image_downloader(linkedin_url)
     elif not (args['username'] or args['url'] or args['id']):
         parser.print_help()
     elif args['username']:
