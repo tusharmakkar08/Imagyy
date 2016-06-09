@@ -2,7 +2,8 @@ __author__ = 'tusharmakkar08'
 
 import unittest
 
-from fb_search import main, open_image_page, open_profile_pic, open_public_images
+from image_search.search_files.fb_search import facebook_image_search, _open_image_page, _open_profile_pic, \
+    _open_public_images
 
 # TODO: Need to make a test user
 TEST_USERNAME = "Lakshaymakkar13"
@@ -19,7 +20,7 @@ class TestMain(unittest.TestCase):
         Profile image opens
         :return:
         """
-        expected_output = open_profile_pic(TEST_USER_ID)
+        expected_output = _open_profile_pic(TEST_USER_ID)
         self.assertEqual(expected_output, 1)
 
     def test_graph_image(self):
@@ -27,7 +28,7 @@ class TestMain(unittest.TestCase):
         Graph image opens up
         :return:
         """
-        expected_output = open_image_page(TEST_USER_ID)
+        expected_output = _open_image_page(TEST_USER_ID)
         self.assertEqual(expected_output, 1)
 
     def test_public_image(self):
@@ -35,7 +36,7 @@ class TestMain(unittest.TestCase):
         public image opens up
         :return:
         """
-        expected_output = open_public_images(TEST_USERNAME)
+        expected_output = _open_public_images(TEST_USERNAME)
         self.assertEqual(expected_output, 1)
 
     def test_main(self):
@@ -43,7 +44,7 @@ class TestMain(unittest.TestCase):
         Main
         :return:
         """
-        expected_output = main(TEST_USERNAME)
+        expected_output = facebook_image_search(TEST_USERNAME)
         self.assertEqual(expected_output, 1)
 
 if __name__ == '__main__':
