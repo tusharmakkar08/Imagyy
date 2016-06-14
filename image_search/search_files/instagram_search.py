@@ -15,7 +15,7 @@ def instagram_image_downloader(url, directory_to_download=None):
     Downloads Instagram images in a particular directory
     :param url: Instagram username url eg: https://www.instagram.com/tusharmakkar08/
     :param directory_to_download: Directory where files will be downloaded ,
-            if this is none then files downloaded to default directory
+    if this is none then files downloaded to default directory
     :return:
     """
     response = urllib2.urlopen(url)

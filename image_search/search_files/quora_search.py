@@ -16,7 +16,7 @@ def quora_image_downloader(url, directory_to_download=None):
     Downloads Quora images in a particular directory
     :param url: Quora username url eg: https://www.quora.com/profile/Tushar-Makkar
     :param directory_to_download: Directory where files will be downloaded ,
-            if this is none then files downloaded to default directory
+    if this is none then files downloaded to default directory
     :return:
     """
     response = urllib2.urlopen(url)
