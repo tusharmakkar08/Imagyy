@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>image_search.main_search &mdash; Image Search  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Image Search  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for image_search.main_search</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;tusharmakkar08&#39;</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">image_search.search_files.instagram_search</span> <span class="kn">import</span> <span class="n">instagram_image_downloader</span>
+<span class="kn">from</span> <span class="nn">image_search.search_files.fb_search</span> <span class="kn">import</span> <span class="n">facebook_image_search</span>
+<span class="kn">from</span> <span class="nn">image_search.search_files.github_search</span> <span class="kn">import</span> <span class="n">github_image_downloader</span>
+<span class="kn">from</span> <span class="nn">image_search.search_files.quora_search</span> <span class="kn">import</span> <span class="n">quora_image_downloader</span>
+<span class="kn">from</span> <span class="nn">image_search.search_files.linkedin_search</span> <span class="kn">import</span> <span class="n">linkedin_image_downloader</span>
+
+
+<span class="k">def</span> <span class="nf">_get_parser</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Command line Parser for search</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Tool for fetching photos from facebook&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-fb&#39;</span><span class="p">,</span> <span class="s1">&#39;--facebook&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fetch Facebook Photos (Default)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ig&#39;</span><span class="p">,</span> <span class="s1">&#39;--instagram&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fetch Instagram Photos&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-qr&#39;</span><span class="p">,</span> <span class="s1">&#39;--quora&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fetch Instagram Photos&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-ln&#39;</span><span class="p">,</span> <span class="s1">&#39;--linkedin&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fetch LinkedIn Profile Photo&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-gb&#39;</span><span class="p">,</span> <span class="s1">&#39;--github&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Fetch Github Profile Photo&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--username&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Username to analyze (For Linkedin add everything after &quot;.com&quot; eg: in/tusharmakkar08)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-u&#39;</span><span class="p">,</span> <span class="s1">&#39;--url&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;url&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Profile Url to analyze&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--id&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Profile Id to analyze (only for facebook)&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--directory&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Directory to download photos (except Facebook)&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span>
+
+
+<div class="viewcode-block" id="command_line_runner"><a class="viewcode-back" href="../../image_search.html#image_search.main_search.command_line_runner">[docs]</a><span class="k">def</span> <span class="nf">command_line_runner</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Entry point for script; Modify to add another search script</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">_get_parser</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;instagram&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]):</span>
+        <span class="n">instagram_url</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;https://www.instagram.com/&quot;</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">instagram_image_downloader</span><span class="p">(</span><span class="n">instagram_url</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;github&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]):</span>
+        <span class="n">github_url</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;https://github.com/&quot;</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">github_image_downloader</span><span class="p">(</span><span class="n">github_url</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;quora&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]):</span>
+        <span class="n">quora_url</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;https://www.quora.com/profile/&quot;</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">quora_image_downloader</span><span class="p">(</span><span class="n">quora_url</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;linkedin&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]):</span>
+        <span class="n">linkedin_url</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;https://www.linkedin.com/&quot;</span> <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">linkedin_image_downloader</span><span class="p">(</span><span class="n">linkedin_url</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]):</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]:</span>
+        <span class="n">facebook_image_search</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.com/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;.php&quot;</span> <span class="ow">in</span> <span class="n">username</span><span class="p">:</span>
+            <span class="n">user_id</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">facebook_image_search</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">facebook_image_search</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]:</span>
+        <span class="n">user_id</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">facebook_image_search</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+    <span class="k">return</span></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">command_line_runner</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Tushar Makkar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

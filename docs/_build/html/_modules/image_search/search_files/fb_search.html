@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>image_search.search_files.fb_search &mdash; Image Search  documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Image Search  documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for image_search.search_files.fb_search</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;tusharmakkar08&#39;</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+
+<span class="k">def</span> <span class="nf">__get_profile_id_fbv1</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input : Username</span>
+<span class="sd">    Output : Profile Id </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://graph.facebook.com/&quot;</span> <span class="o">+</span> <span class="n">username</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">__get_profile_id_fbv2</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input : Username</span>
+<span class="sd">    Output : Profile Id HTML </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">request_data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;http://findmyfbid.com/&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">request_data</span><span class="o">.</span><span class="n">text</span>
+
+
+<span class="k">def</span> <span class="nf">__get_user_id</span><span class="p">(</span><span class="n">html_string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input : HTML String from POST</span>
+<span class="sd">    Output : Profile Id  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_string</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">string</span>
+
+
+<span class="k">def</span> <span class="nf">_open_image_page</span><span class="p">(</span><span class="n">profile_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input : Profile Id </span>
+<span class="sd">    Output : Opens a new tab with graph search results</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_url</span> <span class="o">=</span> <span class="s2">&quot;https://www.facebook.com/search/&quot;</span> <span class="o">+</span> <span class="n">profile_id</span> <span class="o">+</span> <span class="s2">&quot;/photos-of&quot;</span>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new_tab</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="k">def</span> <span class="nf">_open_profile_pic</span><span class="p">(</span><span class="n">profile_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input : Profile Id </span>
+<span class="sd">    Output : Opens a new tab with profile picture of the username</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_url</span> <span class="o">=</span> <span class="s2">&quot;https://graph.facebook.com/&quot;</span> <span class="o">+</span> <span class="n">profile_id</span> <span class="o">+</span> <span class="s2">&quot;/picture?width=800&quot;</span>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new_tab</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="k">def</span> <span class="nf">_open_public_images</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param username: username of a given person</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_url</span> <span class="o">=</span> <span class="s2">&quot;https://www.facebook.com/&quot;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&quot;/photos_all&quot;</span>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new_tab</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<div class="viewcode-block" id="facebook_image_search"><a class="viewcode-back" href="../../../image_search.search_files.html#image_search.search_files.fb_search.facebook_image_search">[docs]</a><span class="k">def</span> <span class="nf">facebook_image_search</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param username: Username of the person to search eg: tusharmakkar08</span>
+<span class="sd">    :param user_id: User Id of the person (integral number) eg: 647452998</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_id</span><span class="p">:</span>
+            <span class="n">user_html</span> <span class="o">=</span> <span class="n">__get_profile_id_fbv2</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+            <span class="n">user_id</span> <span class="o">=</span> <span class="n">__get_user_id</span><span class="p">(</span><span class="n">user_html</span><span class="p">)</span>
+            <span class="n">_open_public_images</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_url</span> <span class="o">=</span> <span class="s2">&quot;https://www.facebook.com/profile.php?id=&quot;</span><span class="o">+</span><span class="n">user_id</span><span class="o">+</span><span class="s2">&quot;&amp;sk=photos&quot;</span>
+            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new_tab</span><span class="p">(</span><span class="n">new_url</span><span class="p">)</span>
+        <span class="n">_open_image_page</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+        <span class="n">_open_profile_pic</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Tushar Makkar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
