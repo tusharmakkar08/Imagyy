@@ -33,8 +33,8 @@ This is a command line tool.
 
 
     usage: main_search.py [-h] [-fb] [-ig] [-qr] [-ln] [-gb] [-n username]
-                      [-u url] [-i id] [-d DIRECTORY]
-
+                          [-u url] [-i id] [-d directory]
+    
     Tool for fetching photos from facebook
     
     optional arguments:
@@ -49,8 +49,9 @@ This is a command line tool.
                             ".com" eg: in/tusharmakkar08)
       -u url, --url url     Profile Url to analyze
       -i id, --id id        Profile Id to analyze (only for facebook)
-      -d DIRECTORY, --directory DIRECTORY
-                            Directory to download photos (except Facebook)
+      -d directory, --directory directory
+                            Directory to download photos/Name of downloaded file
+
 
 # License
 
