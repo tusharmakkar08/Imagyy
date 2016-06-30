@@ -52,7 +52,6 @@ This is a command line tool.
       -d directory, --directory directory
                             Directory to download photos/Name of downloaded file
 
-
 # License
 
 The mighty MIT license. Please check `LICENSE` for more details.
