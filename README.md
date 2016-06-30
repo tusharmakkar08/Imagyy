@@ -1,6 +1,7 @@
 Image Search
 =============
 
+[![Build Status](https://travis-ci.org/tusharmakkar08/Facebook_Graph_Search_Images.svg?branch=master)](https://travis-ci.org/tusharmakkar08/Facebook_Graph_Search_Images)
 [![GitHub issues](https://img.shields.io/github/issues/tusharmakkar08/Facebook_Graph_Search_Images.svg)](https://github.com/tusharmakkar08/Facebook_Graph_Search_Images/issues)
 [![GitHub stars](https://img.shields.io/github/stars/tusharmakkar08/Facebook_Graph_Search_Images.svg)](https://github.com/tusharmakkar08/Facebook_Graph_Search_Images/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/tusharmakkar08/Facebook_Graph_Search_Images/master/LICENSE)
