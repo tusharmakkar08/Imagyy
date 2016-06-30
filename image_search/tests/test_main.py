@@ -1,5 +1,6 @@
 __author__ = 'tusharmakkar08'
 
+import os
 import unittest
 
 from image_search.search_files.fb_search import facebook_image_search, _open_image_page, _open_profile_pic, \
@@ -14,6 +15,14 @@ class TestMain(unittest.TestCase):
     """
     For testing Main code
     """
+
+    def tearDown(self):
+        """
+        Removing generated files
+        :return:
+        """
+        if os.path.exists(TEST_USERNAME+".jpg"):
+            os.remove(TEST_USERNAME+".jpg")
 
     def test_profile_image(self):
         """
