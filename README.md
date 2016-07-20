@@ -1,4 +1,4 @@
-Image Search
+Imagyy
 =============
 
 [![Build Status](https://travis-ci.org/tusharmakkar08/Facebook_Graph_Search_Images.svg?branch=master)](https://travis-ci.org/tusharmakkar08/Facebook_Graph_Search_Images)
@@ -7,13 +7,13 @@ Image Search
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/tusharmakkar08/Facebook_Graph_Search_Images/master/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/facebook-image-search.svg?maxAge=2592000)](https://pypi.python.org/pypi/facebook_image_search)
 
-This application aims to solve the following issues:
+Imagyy aims to solve the following issues:
 
 * Due to the advent of Post Search, it's difficult to use the feature of "Photos of" which was earlier done using 
 graph search. 
 * Downloads profile images from popular platforms like Linkedin, Quora, Github, Instagram, Facebook etc. 
 
-You can read more about the project [here](http://tusharmakkar08.github.io/Facebook_Graph_Search_Images/). 
+You can read more about the project [here](http://tusharmakkar08.github.io/Imagyy/). 
 
 
 #  Installation : 
