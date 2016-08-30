@@ -16,7 +16,7 @@ You can read more about the project `here`_.
 Installation :
 ==============
 
-``facebook_image_search`` is a Python2.7 library.
+``imagyy`` is a Python2.7 library.
 
 ::
 

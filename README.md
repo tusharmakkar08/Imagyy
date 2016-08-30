@@ -19,7 +19,7 @@ You can read more about the project [here](http://tusharmakkar08.github.io/Imagy
 #  Installation : 
 
 
-`facebook_image_search` is a Python2.7 library. 
+`imagyy` is a Python2.7 library. 
 
     pip install imagyy
 
