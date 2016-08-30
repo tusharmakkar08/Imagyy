@@ -8,37 +8,41 @@ install_requirement = [str(ir.req) for ir in install_reqs]
 
 setup(
     # Application name:
-    name="facebook_image_search",
+    name="imagyy",
 
     # Version number:
-    version="0.0.3",
+    version="1.0.2",
 
     # Application author details:
     author="Tushar Makkar",
     author_email="tusharmakkar08@gmail.com",
 
     # Packages
-    py_modules=['fb_search'],
+    packages=['image_search', 'image_search.search_files'],
 
     package_data={'': ['*.md']},
 
     license='MIT',
     platforms=['any'],
     # Details
-    url="http://tusharmakkar08.github.io/Facebook_Graph_Search_Images/",
+    url="https://github.com/tusharmakkar08/Imagyy/",
 
     classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
     ],
 
     # license="LICENSE.txt",
-    description="Fetches public photos of any facebook id/username",
+    description="Fetches public photos of different social networking platforms",
 
-    long_description=open("README.md").read(),
+    long_description=open("README.rst").read(),
 
     entry_points={
         'console_scripts': [
-            'fb-search = fb_search:command_line_runner',
+            'imagyy = image_search.main_search:command_line_runner',
         ]
     },
 

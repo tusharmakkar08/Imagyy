@@ -31,8 +31,8 @@ def _get_parser():
                         help='Profile Url to analyze')
     parser.add_argument('-i', '--id', metavar='id', type=str,
                         help='Profile Id to analyze (only for facebook)')
-    parser.add_argument('-d', '--directory', type=str, default=None,
-                        help='Directory to download photos (except Facebook)')
+    parser.add_argument('-d', '--directory', metavar='directory', type=str, default=None,
+                        help='Directory to download photos')
     return parser
 
 
@@ -45,30 +45,30 @@ def command_line_runner():
     args = vars(parser.parse_args())
     if args["instagram"] and (args['username'] or args['url']):
         instagram_url = args['url'] if args['url'] else "https://www.instagram.com/" + args['username']
-        instagram_image_downloader(instagram_url)
+        instagram_image_downloader(instagram_url, args['directory'])
     elif args["github"] and (args['username'] or args['url']):
         github_url = args['url'] if args['url'] else "https://github.com/" + args['username']
-        github_image_downloader(github_url)
+        github_image_downloader(github_url, args['directory'])
     elif args["quora"] and (args['username'] or args['url']):
         quora_url = args['url'] if args['url'] else "https://www.quora.com/profile/" + args['username']
-        quora_image_downloader(quora_url)
+        quora_image_downloader(quora_url, args['directory'])
     elif args["linkedin"] and (args['username'] or args['url']):
         linkedin_url = args['url'] if args['url'] else "https://www.linkedin.com/" + args['username']
-        linkedin_image_downloader(linkedin_url)
+        linkedin_image_downloader(linkedin_url, args['directory'])
     elif not (args['username'] or args['url'] or args['id']):
         parser.print_help()
     elif args['username']:
-        facebook_image_search(args['username'])
+        facebook_image_search(args['username'], directory_to_download=args['directory'])
     elif args['url']:
         username = args['url'].split(".com/")[1].split("/")[0]
         if ".php" in username:
             user_id = username.split('=')[1]
-            facebook_image_search("", user_id)
+            facebook_image_search("", user_id, directory_to_download=args['directory'])
         else:
-            facebook_image_search(username)
+            facebook_image_search(username, directory_to_download=args['directory'])
     elif args['id']:
         user_id = args['id']
-        facebook_image_search("", user_id)
+        facebook_image_search("", user_id, directory_to_download=args['directory'])
     else:
         parser.print_help()
     return

@@ -77,7 +77,16 @@ def _open_public_images(username):
         return -1
 
 
-def facebook_image_search(username, user_id=None):
+def _download_profile_pic(profile_id, file_name):
+    """
+    :param file_name: File name to store
+    :return:
+    """
+    image_link = "https://graph.facebook.com/" + profile_id + "/picture?width=800"
+    urllib.urlretrieve(image_link, file_name)
+
+
+def facebook_image_search(username, user_id=None, directory_to_download=None):
     """
     :param username: Username of the person to search eg: tusharmakkar08
     :param user_id: User Id of the person (integral number) eg: 647452998
@@ -93,6 +102,12 @@ def facebook_image_search(username, user_id=None):
             webbrowser.open_new_tab(new_url)
         _open_image_page(user_id)
         _open_profile_pic(user_id)
+        if not directory_to_download:
+            if username:
+                directory_to_download = username + ".jpg"
+            else:
+                directory_to_download = user_id + ".jpg"
+        _download_profile_pic(user_id, directory_to_download)
         return 1
     except Exception, e:
         print(e)
