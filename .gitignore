@@ -1,3 +1,6 @@
 .idea/
 venv/
 *.pyc
+imagyy.egg-info
+build
+dist
