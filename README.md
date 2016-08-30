@@ -1,11 +1,11 @@
 Imagyy
 =============
 
-[![Build Status](https://travis-ci.org/tusharmakkar08/Imagyy.svg?branch=master)](https://travis-ci.org/tusharmakkar08/Imagyy)
-[![GitHub issues](https://img.shields.io/github/issues/tusharmakkar08/Facebook_Graph_Search_Images.svg)](https://github.com/tusharmakkar08/Facebook_Graph_Search_Images/issues)
-[![GitHub stars](https://img.shields.io/github/stars/tusharmakkar08/Facebook_Graph_Search_Images.svg)](https://github.com/tusharmakkar08/Facebook_Graph_Search_Images/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/tusharmakkar08/Facebook_Graph_Search_Images/master/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/facebook-image-search.svg?maxAge=2592000)](https://pypi.python.org/pypi/facebook_image_search)
+[![Build_Status](https://travis-ci.org/tusharmakkar08/Imagyy.svg?branch=master)](https://travis-ci.org/tusharmakkar08/Imagyy)
+[![GitHub_issues](https://img.shields.io/github/issues/tusharmakkar08/Imagyy.svg)](https://github.com/tusharmakkar08/Imagyy/issues)
+[![GitHub_stars](https://img.shields.io/github/stars/tusharmakkar08/Imagyy.svg)](https://github.com/tusharmakkar08/Imagyy/stargazers)
+[![GitHub_license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/tusharmakkar08/Imagyy/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/Imagyy.svg?maxAge=2592000)](https://pypi.python.org/pypi/imagyy)
 
 Imagyy aims to solve the following issues:
 
@@ -21,7 +21,7 @@ You can read more about the project [here](http://tusharmakkar08.github.io/Imagy
 
 `facebook_image_search` is a Python2.7 library. 
 
-    pip install facebook_image_search
+    pip install imagyy
 
 
 # Preconditions :
@@ -33,7 +33,7 @@ This is a command line tool.
 # Usage :
 
 
-    usage: main_search.py [-h] [-fb] [-ig] [-qr] [-ln] [-gb] [-n username]
+    usage: imagyy [-h] [-fb] [-ig] [-qr] [-ln] [-gb] [-n username]
                           [-u url] [-i id] [-d directory]
     
     Tool for fetching photos from facebook
@@ -52,6 +52,32 @@ This is a command line tool.
       -i id, --id id        Profile Id to analyze (only for facebook)
       -d directory, --directory directory
                             Directory to download photos/Name of downloaded file
+
+# Examples
+
+* For facebook related photos from username 
+
+        imagyy -fb -n zuck 
+  
+* For facebook related photos from url 
+        
+        imagyy -fb -u http://facebook.com/zuck
+
+* For Instagram related photos from username
+
+        imagyy -ig -n tusharmakkar08
+        
+* For Quora related photos from username
+        
+        imagyy -qr -n Tushar-Makkar
+        
+* For Github related photos from username 
+
+        imagyy -gb -n tusharmakkar08
+
+* For Linkedin related photos from username
+
+        imagyy -ln -n in/tusharmakkar08
 
 # License
 
