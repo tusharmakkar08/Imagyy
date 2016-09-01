@@ -1,7 +1,15 @@
 __author__ = 'tusharmakkar08'
 
-import urllib2
-import urllib
+try:
+    from urllib.parse import urlparse, urlencode
+    from urllib.request import urlopen, Request, urlretrieve
+    from urllib.error import HTTPError
+except ImportError:
+    from urlparse import urlparse
+    from urllib import urlencode
+    from urllib2 import urlopen, Request, HTTPError
+    from urllib import urlretrieve
+
 import re
 import os
 
@@ -18,8 +26,8 @@ def github_image_downloader(url, directory_to_download=None):
     if this is none then files downloaded to default directory
     :return:
     """
-    response = urllib2.urlopen(url)
-    html = response.read()
+    response = urlopen(url)
+    html = response.read().decode('utf-8')
     image_links = {link for link in re.findall(URL_REGEX, html) if LINK_END in link}
     user_name = url.split(".com/")[1].strip("/")
     download_directory = os.path.join(DEFAULT_DIRECTORY, directory_to_download) if directory_to_download else \
@@ -28,5 +36,5 @@ def github_image_downloader(url, directory_to_download=None):
         os.makedirs(download_directory)
     for index, image_link in enumerate(image_links):
         download_location = os.path.join(download_directory, user_name + "_" + str(index) + ".jpg")
-        urllib.urlretrieve(image_link, download_location)
+        urlretrieve(image_link, download_location)
 

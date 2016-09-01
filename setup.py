@@ -11,7 +11,7 @@ setup(
     name="imagyy",
 
     # Version number:
-    version="1.0.2",
+    version="1.0.3",
 
     # Application author details:
     author="Tushar Makkar",
@@ -33,6 +33,11 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.1',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
     ],
 
     # license="LICENSE.txt",

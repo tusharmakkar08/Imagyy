@@ -1,7 +1,16 @@
 __author__ = 'tusharmakkar08'
 
+try:
+    from urllib.parse import urlparse, urlencode
+    from urllib.request import urlopen, Request, urlretrieve
+    from urllib.error import HTTPError
+except ImportError:
+    from urlparse import urlparse
+    from urllib import urlencode
+    from urllib2 import urlopen, Request, HTTPError
+    from urllib import urlretrieve
+
 import json
-import urllib
 import webbrowser
 from bs4 import BeautifulSoup
 import requests
@@ -13,7 +22,7 @@ def __get_profile_id_fbv1(username):
     Output : Profile Id 
     """
     url = "http://graph.facebook.com/" + username
-    response = urllib.urlopen(url)
+    response = urlopen(url)
     data = json.loads(response.read())
     return data['id']
 
@@ -44,7 +53,7 @@ def _open_image_page(profile_id):
         new_url = "https://www.facebook.com/search/" + profile_id + "/photos-of"
         webbrowser.open_new_tab(new_url)
         return 1
-    except Exception, e:
+    except Exception as e:
         print(e)
         return -1
 
@@ -58,7 +67,7 @@ def _open_profile_pic(profile_id):
         new_url = "https://graph.facebook.com/" + profile_id + "/picture?width=800"
         webbrowser.open_new_tab(new_url)
         return 1
-    except Exception, e:
+    except Exception as e:
         print(e)
         return -1
 
@@ -72,7 +81,7 @@ def _open_public_images(username):
         new_url = "https://www.facebook.com/" + username + "/photos_all"
         webbrowser.open_new_tab(new_url)
         return 1
-    except Exception, e:
+    except Exception as e:
         print(e)
         return -1
 
@@ -83,7 +92,7 @@ def _download_profile_pic(profile_id, file_name):
     :return:
     """
     image_link = "https://graph.facebook.com/" + profile_id + "/picture?width=800"
-    urllib.urlretrieve(image_link, file_name)
+    urlretrieve(image_link, file_name)
 
 
 def facebook_image_search(username, user_id=None, directory_to_download=None):
@@ -109,6 +118,6 @@ def facebook_image_search(username, user_id=None, directory_to_download=None):
                 directory_to_download = user_id + ".jpg"
         _download_profile_pic(user_id, directory_to_download)
         return 1
-    except Exception, e:
+    except Exception as e:
         print(e)
         return -1

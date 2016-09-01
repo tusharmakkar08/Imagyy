@@ -19,7 +19,7 @@ You can read more about the project [here](http://tusharmakkar08.github.io/Imagy
 #  Installation : 
 
 
-`imagyy` is a Python2.7 library. 
+`imagyy` is a Python2.7/Python3 library. 
 
     pip install imagyy
 

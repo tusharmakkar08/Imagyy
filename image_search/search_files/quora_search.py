@@ -1,7 +1,16 @@
 __author__ = 'tusharmakkar08'
 
-import urllib2
-import urllib
+try:
+    from urllib.parse import urlparse, urlencode
+    from urllib.request import urlopen, Request, urlretrieve
+    from urllib.error import HTTPError
+except ImportError:
+    from urlparse import urlparse
+    from urllib import urlencode
+    from urllib2 import urlopen, Request, HTTPError
+    from urllib import urlretrieve
+
+
 import re
 import uuid
 import os
@@ -19,8 +28,8 @@ def quora_image_downloader(url, directory_to_download=None):
     if this is none then files downloaded to default directory
     :return:
     """
-    response = urllib2.urlopen(url)
-    html = response.read()
+    response = urlopen(url)
+    html = response.read().decode('utf-8')
     image_links = {link for link in re.findall(URL_REGEX, html) if PIC_EXTENSION in link and "200" in link}
     download_directory = os.path.join(DEFAULT_DIRECTORY, directory_to_download) if directory_to_download else \
         os.path.join(DEFAULT_DIRECTORY, url.split(".com/profile/")[1].strip("/"))
@@ -28,4 +37,4 @@ def quora_image_downloader(url, directory_to_download=None):
         os.makedirs(download_directory)
     for image_link in image_links:
         download_location = os.path.join(download_directory, str(uuid.uuid4()) + PIC_EXTENSION)
-        urllib.urlretrieve(image_link, download_location)
+        urlretrieve(image_link, download_location)
