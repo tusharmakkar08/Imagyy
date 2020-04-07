@@ -66,11 +66,9 @@ def command_line_runner():
             facebook_image_search("", user_id, directory_to_download=args['directory'])
         else:
             facebook_image_search(username, directory_to_download=args['directory'])
-    elif args['id']:
+    else:
         user_id = args['id']
         facebook_image_search("", user_id, directory_to_download=args['directory'])
-    else:
-        parser.print_help()
     return
 
 
