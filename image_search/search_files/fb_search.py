@@ -112,10 +112,7 @@ def facebook_image_search(username, user_id=None, directory_to_download=None):
         _open_image_page(user_id)
         _open_profile_pic(user_id)
         if not directory_to_download:
-            if username:
-                directory_to_download = username + ".jpg"
-            else:
-                directory_to_download = user_id + ".jpg"
+            directory_to_download = username + '.jpg' if username else user_id + '.jpg'
         _download_profile_pic(user_id, directory_to_download)
         return 1
     except Exception as e:
